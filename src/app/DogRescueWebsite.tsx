@@ -134,14 +134,13 @@ const faqItems = [
 
 export default function DogRescueWebsite() {
   const [activeTab, setActiveTab] = useState('Home')
-  const [hoveredTab, setHoveredTab] = useState(null)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    const handleMouseMove = (e: { clientX: any; clientY: any }) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setCursorPosition({ x: e.clientX, y: e.clientY })
     }
 
@@ -152,7 +151,7 @@ export default function DogRescueWebsite() {
     }
   }, [])
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // Here you would typically send the form data to a server
     console.log('Form submitted:', { name, email, message })
@@ -176,8 +175,6 @@ export default function DogRescueWebsite() {
                       : 'bg-blue-500 hover:bg-blue-700 focus:bg-blue-700'
                   }`}
                   onClick={() => setActiveTab(item.name)}
-                  onMouseEnter={() => setHoveredTab(item.name)}
-                  onMouseLeave={() => setHoveredTab(null)}
                 >
                   {item.name}
                 </button>
@@ -216,7 +213,7 @@ export default function DogRescueWebsite() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {testimonials.map((testimonial, index) => (
                       <div key={index} className="bg-gray-100 p-4 rounded hover:shadow-md transition-shadow">
-                        <p className="italic mb-2">"{testimonial.text}"</p>
+                        <p className="italic mb-2">&ldquo;{testimonial.text}&rdquo;</p>
                         <p className="font-semibold">- {testimonial.name}</p>
                       </div>
                     ))}
@@ -224,7 +221,7 @@ export default function DogRescueWebsite() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-2">Did You Know?</h3>
-                  <p>Every year, millions of dogs end up in shelters. By adopting, you're not just saving one life, you're making room for another dog to be rescued. Join us in making a difference!</p>
+                  <p>Every year, millions of dogs end up in shelters. By adopting, you&apos;re not just saving one life, you&apos;re making room for another dog to be rescued. Join us in making a difference!</p>
                 </div>
               </div>
             )}
@@ -287,7 +284,7 @@ export default function DogRescueWebsite() {
             )}
             {activeTab === 'Contact Us' && (
               <div>
-                <p className="mb-6">We'd love to hear from you! Whether you have questions about adoption, want to volunteer, or need to report a dog in distress, we're here to help.</p>
+                <p className="mb-6">We&apos;d love to hear from you! Whether you have questions about adoption, want to volunteer, or need to report a dog in distress, we&apos;re here to help.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
@@ -378,3 +375,4 @@ export default function DogRescueWebsite() {
     </div>
   )
 }
+
